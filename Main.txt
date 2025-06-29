@@ -64,7 +64,6 @@ This repository includes:
 \begin{itemize}
     \item Source code files
     \item Installation instructions
-    \item Example datasets (if applicable)
     \item Documentation and usage guidelines
 \end{itemize}
 
