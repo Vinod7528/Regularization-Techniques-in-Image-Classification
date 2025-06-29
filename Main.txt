@@ -1,0 +1,236 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{float}
+\geometry{margin=1in}
+
+% Define Colab-like code style
+\definecolor{colabgray}{rgb}{0.95,0.95,0.92}
+\definecolor{colabblue}{rgb}{0.0,0.0,0.6}
+\definecolor{colabgreen}{rgb}{0,0.5,0}
+\definecolor{colabcomment}{rgb}{0.5,0.5,0.5}
+\definecolor{colaborange}{rgb}{0.8,0.4,0}
+\lstdefinestyle{colab}{
+    backgroundcolor=\color{colabgray},
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{colabblue}\bfseries,
+    stringstyle=\color{colaborange},
+    commentstyle=\color{colabcomment}\itshape,
+    numberstyle=\tiny\color{colabcomment},
+    numbers=left,
+    numbersep=8pt,
+    frame=single,
+    breaklines=true,
+    showstringspaces=false,
+    tabsize=4,
+    captionpos=b,
+}
+
+\title{Lab Report: AP Lab07 Regularization Techniques in Image Classification}
+\author{Vinod Kumar Bareeti\\
+Student ID: 12502213\\
+Artificial Intelligence for Smart Sensors / Actuators\\
+Instructor: Prof. Tobias Schaffer}
+\date{21/06/2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+The tasks involve training a baseline model to establish initial accuracy and loss metrics. Later, dropout and L2 regularization are applied separately to observe their effects on overfitting, and then combined in different configurations to further improve performance. Early stopping is used to automatically halt training when the validation loss stops improving. Data augmentation techniques such as rotation, shifting, flipping, and zooming are also introduced to increase the diversity of the training data.
+
+The objective of this lab is to evaluate regularization and data augmentation methods to improve a CNN trained on the Dogs vs Cats dataset, enhancing validation accuracy and generalization.
+
+\section{Methodology}
+This lab uses Python and the TensorFlow/Keras libraries to build and train convolutional neural networks. The approach involves starting with a baseline model, followed by applying dropout, L2 regularization, and their combination. Early stopping and data augmentation are also implemented. Model performance is tracked using accuracy/loss plots, confusion matrices, and visualization of misclassified images.
+
+\subsection{Software and Hardware Used}
+\begin{itemize}
+    \item Programming language: Python
+    \item Libraries: NumPy, Keras, TensorFlow, matplotlib
+    \item Hardware: Intel Core i7 / AMD Ryzen 7 or higher, 16 GB RAM
+\end{itemize}
+
+\subsection{Code Repository}
+The full source code for this project is available on GitHub at: \\
+\url{https://github.com/Vinod7528/Regularization-Techniques-in-Image-Classification.git}
+
+This repository includes:
+\begin{itemize}
+    \item Source code files
+    \item Installation instructions
+    \item Example datasets (if applicable)
+    \item Documentation and usage guidelines
+\end{itemize}
+
+\subsection{Code Implementation}
+Below are key code implementations for different regularization techniques:
+
+\subsubsection{Baseline Model}
+\begin{lstlisting}[language=Python, style=colab, caption={Baseline CNN model}]
+# Baseline CNN model
+model = Sequential()
+model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(150, 150, 3)))
+model.add(MaxPooling2D(2, 2))
+model.add(Conv2D(64, (3, 3), activation='relu'))
+model.add(MaxPooling2D(2, 2))
+model.add(Conv2D(128, (3, 3), activation='relu'))
+model.add(MaxPooling2D(2, 2))
+model.add(Flatten())
+model.add(Dense(128, activation='relu'))
+model.add(Dense(1, activation='sigmoid'))
+model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+\end{lstlisting}
+
+\subsubsection{Dropout Regularization}
+\begin{lstlisting}[language=Python, style=colab, caption={Dropout Regularization}]
+# Adding dropout layers
+model = Sequential()
+model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(150, 150, 3)))
+model.add(MaxPooling2D(2, 2))
+model.add(Dropout(0.2))
+model.add(Conv2D(64, (3, 3), activation='relu'))
+model.add(MaxPooling2D(2, 2))
+model.add(Dropout(0.2))
+model.add(Conv2D(128, (3, 3), activation='relu'))
+model.add(MaxPooling2D(2, 2))
+model.add(Dropout(0.2))
+model.add(Flatten())
+model.add(Dense(128, activation='relu'))
+model.add(Dropout(0.5))
+model.add(Dense(1, activation='sigmoid'))
+model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+\end{lstlisting}
+
+\subsubsection{L2 Regularization}
+\begin{lstlisting}[language=Python, style=colab, caption={L2 Regularization}]
+# Adding L2 regularization
+from keras.regularizers import l2
+
+model = Sequential()
+model.add(Conv2D(32, (3, 3), activation='relu', kernel_regularizer=l2(0.001), input_shape=(150, 150, 3)))
+model.add(MaxPooling2D(2, 2))
+model.add(Conv2D(64, (3, 3), activation='relu', kernel_regularizer=l2(0.001)))
+model.add(MaxPooling2D(2, 2))
+model.add(Conv2D(128, (3, 3), activation='relu', kernel_regularizer=l2(0.001)))
+model.add(MaxPooling2D(2, 2))
+model.add(Flatten())
+model.add(Dense(128, activation='relu', kernel_regularizer=l2(0.001)))
+model.add(Dense(1, activation='sigmoid'))
+model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+\end{lstlisting}
+
+\subsubsection{Combined Dropout and L2}
+\begin{lstlisting}[language=Python, style=colab, caption={Combined Dropout and L2}]
+# Combined regularization
+model = Sequential()
+model.add(Conv2D(32, (3, 3), activation='relu', kernel_regularizer=l2(0.001), input_shape=(150, 150, 3)))
+model.add(MaxPooling2D(2, 2))
+model.add(Dropout(0.2))
+# ... additional layers with both techniques ...
+model.add(Dense(1, activation='sigmoid'))
+model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+\end{lstlisting}
+
+\subsubsection{Data Augmentation}
+\begin{lstlisting}[language=Python, style=colab, caption={Data Augmentation}]
+# Data augmentation
+train_datagen = ImageDataGenerator(
+    rescale=1./255,
+    rotation_range=40,
+    width_shift_range=0.2,
+    height_shift_range=0.2,
+    shear_range=0.2,
+    zoom_range=0.2,
+    horizontal_flip=True,
+    fill_mode='nearest')
+\end{lstlisting}
+
+\subsubsection{Early Stopping}
+\begin{lstlisting}[language=Python, style=colab, caption={Early Stopping}]
+# Early stopping callback
+from keras.callbacks import EarlyStopping
+
+early_stop = EarlyStopping(
+    monitor='val_loss', 
+    patience=3, 
+    restore_best_weights=True)
+\end{lstlisting}
+
+\section{Results}
+The following results show training progress for different regularization approaches:
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{basic_model_accuracy_loss.png}
+\caption{Model Accuracy and Loss of Basic Model}
+\label{fig:basic}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{l2_model_accuracy_loss.png}
+\caption{Model Accuracy and Loss of L2 Regularization Model}
+\label{fig:l2}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{dropout_model_accuracy_loss.png}
+\caption{Model Accuracy and Loss of Dropout Model}
+\label{fig:dropout}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{combined_model_accuracy_loss.png}
+\caption{Model Accuracy and Loss of Combined Dropout \& L2 Model}
+\label{fig:combined}
+\end{figure}
+
+\section{Challenges, Limitations, and Error Analysis}
+
+\subsection{Challenges Faced}
+\begin{itemize}
+    \item Choosing appropriate dropout and L2 regularization values was difficult.
+    \item Slow training due to lack of powerful GPU.
+    \item Inconsistent results due to random shuffling and augmentation.
+\end{itemize}
+
+\subsection{Error Analysis}
+\begin{itemize}
+    \item Syntax errors and misspellings in code.
+    \item Forgetting to normalize image data.
+    \item Data imbalance issues.
+    \item Incorrect convolution kernel sizes.
+\end{itemize}
+
+\subsection{Limitations of the Implementation}
+\begin{itemize}
+    \item Poor performance on images with unusual lighting, angles, or cluttered backgrounds.
+    \item Requires a large dataset and significant computational power.
+    \item Sensitive to minor image changes like noise or slight rotation.
+    \item Lack of transparency in decision-making makes debugging difficult.
+\end{itemize}
+
+\section{Discussion}
+The CNN performed well on typical images from the dataset, but struggled with edge cases. Regularization reduced overfitting, and data augmentation improved robustness. Analysis of misclassified images emphasized the need for a diverse and balanced dataset. These findings were consistent with expectations and demonstrated the importance of tuning and preparation in machine learning.
+
+\section{Conclusion}
+This lab showed that CNNs can effectively classify cats and dogs when trained on well-prepared data. Regularization methods (dropout, L2) helped generalization, and augmentation techniques added robustness. However, the model still struggled with atypical images. Future improvements could include using more varied data, experimenting with transfer learning, and enhancing model interpretability.
+
+\section{References}
+\begin{itemize}
+    \item N. Sharma, "An Analysis Of Convolutional Neural Networks For Image Classification," ScienceDirect, 2018.
+    \item F. Sultana, A. Sufian, P. Dutta, "Advancements in Image Classification using Convolutional Neural Network," arXiv:1905.03288, 2019.
+    \item \url{https://www.tensorflow.org/tutorials/images/cnn}
+    \item \url{https://poloclub.github.io/cnn-explainer/}
+    \item \url{https://developers.google.com/machine-learning/practica/image-classification/convolutional-neural-networks}
+\end{itemize}
+
+\end{document}
