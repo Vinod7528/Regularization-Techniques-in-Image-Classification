@@ -1,41 +1,38 @@
-\documentclass[12pt]{article}
-\usepackage{graphicx}
-\usepackage{hyperref}
-\usepackage{amsmath}
-\usepackage{listings}
-\usepackage{xcolor}
-\usepackage{geometry}
-\usepackage{float}
-\geometry{margin=1in}
+\documentclass[a4paper,12pt]{article}
+% Packages
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}  % For images
+\usepackage{listings}  % For code snippets
+\usepackage{xcolor}    % For code coloring
+\usepackage{hyperref}  % For hyperlinks
+\usepackage{amsmath}   % For math equations
+\usepackage{caption}   % Better captions
+\usepackage{geometry}  % Page layout
+\geometry{margin=2.5cm}
 
-% Define Colab-like code style
-\definecolor{colabgray}{rgb}{0.95,0.95,0.92}
-\definecolor{colabblue}{rgb}{0.0,0.0,0.6}
-\definecolor{colabgreen}{rgb}{0,0.5,0}
-\definecolor{colabcomment}{rgb}{0.5,0.5,0.5}
-\definecolor{colaborange}{rgb}{0.8,0.4,0}
-\lstdefinestyle{colab}{
-    backgroundcolor=\color{colabgray},
+% Remove paragraph indentation
+\setlength{\parindent}{0pt}
+
+% Code styling
+\lstset{
+    language=Python,
     basicstyle=\ttfamily\footnotesize,
-    keywordstyle=\color{colabblue}\bfseries,
-    stringstyle=\color{colaborange},
-    commentstyle=\color{colabcomment}\itshape,
-    numberstyle=\tiny\color{colabcomment},
-    numbers=left,
-    numbersep=8pt,
-    frame=single,
+    keywordstyle=\color{blue},
+    stringstyle=\color{red},
+    commentstyle=\color{gray},
     breaklines=true,
-    showstringspaces=false,
-    tabsize=4,
-    captionpos=b,
+    frame=single
 }
+
 
 \title{Lab Report: AP Lab07 Regularization Techniques in Image Classification}
 \author{Vinod Kumar Bareeti\\
 Student ID: 12502213\\
 Artificial Intelligence for Smart Sensors / Actuators\\
 Instructor: Prof. Tobias Schaffer}
-\date{21/06/2025}
+\date{29/06/2025}
 
 \begin{document}
 
@@ -64,6 +61,7 @@ This repository includes:
 \begin{itemize}
     \item Source code files
     \item Installation instructions
+    \item Example datasets (if applicable)
     \item Documentation and usage guidelines
 \end{itemize}
 
@@ -175,7 +173,7 @@ The following results show training progress for different regularization approa
 \centering
 \includegraphics[width=0.5\textwidth]{l2_model_accuracy_loss.png}
 \caption{Model Accuracy and Loss of L2 Regularization Model}
-\label{fig:l2}
+\label{fig:L2}
 \end{figure}
 
 \begin{figure}[H]
