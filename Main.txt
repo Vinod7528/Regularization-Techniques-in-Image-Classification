@@ -164,28 +164,75 @@ The following results show training progress for different regularization approa
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.5\textwidth]{basic_model_accuracy_loss.png}
+\includegraphics[width=0.9\textwidth]{Model Accuracy for Base Model.png}
 \caption{Model Accuracy and Loss of Basic Model}
 \label{fig:basic}
 \end{figure}
-
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.5\textwidth]{l2_model_accuracy_loss.png}
+\includegraphics[width=0.9\textwidth]{Model Loss for Base Model.png}
+\caption{Model Accuracy and Loss of Basic Model}
+\label{fig:basic}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{Dropout Accuracy.png}
 \caption{Model Accuracy and Loss of L2 Regularization Model}
 \label{fig:L2}
 \end{figure}
-
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.5\textwidth]{dropout_model_accuracy_loss.png}
+\includegraphics[width=0.9\textwidth]{Dropout Loss.png}
+\caption{Model Accuracy and Loss of L2 Regularization Model}
+\label{fig:L2}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{L2 model Accuracy.png}
 \caption{Model Accuracy and Loss of Dropout Model}
 \label{fig:dropout}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{L2 Regulation model Loss.png}
+\caption{Model Accuracy and Loss of Combined Dropout \& L2 Model}
+\label{fig:combined}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{Accuracy Combined.png}
+\caption{Model Accuracy and Loss of Combined Dropout \& L2 Model}
+\label{fig:combined}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{Loss Combined.png}
+\caption{Model Accuracy and Loss of Combined Dropout \& L2 Model}
+\label{fig:combined}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{Early Stopping Accuracy.png}
+\caption{Model Accuracy and Loss of Combined Dropout \& L2 Model}
+\label{fig:combined}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{Early stopping Loss.png}
+\caption{Model Accuracy and Loss of Combined Dropout \& L2 Model}
+\label{fig:combined}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.5\textwidth]{combined_model_accuracy_loss.png}
+\includegraphics[width=0.9\textwidth]{Confusion Matrix.jpg}
+\caption{Model Accuracy and Loss of Combined Dropout \& L2 Model}
+\label{fig:combined}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1.1\textwidth]{Misclassified Images.jpg}
 \caption{Model Accuracy and Loss of Combined Dropout \& L2 Model}
 \label{fig:combined}
 \end{figure}
